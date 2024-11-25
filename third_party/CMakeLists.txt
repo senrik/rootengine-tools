@@ -6,14 +6,14 @@ set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 
- execute_process (
+execute_process (
     COMMAND cmake -S ${CMAKE_CURRENT_SOURCE_DIR}/glfw/ -B ./glfw-build/
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     OUTPUT_VARIABLE GLFW_OUTPUT
 )
 message(STATUS "[Tools] GLFW CMake:\n${GLFW_OUTPUT}")
 
-# execute_process (
+execute_process (
     COMMAND cmake --build ${CMAKE_CURRENT_SOURCE_DIR}/glfw-build/
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     OUTPUT_VARIABLE GLFW_BUILD_OUTPUT
@@ -21,12 +21,13 @@ message(STATUS "[Tools] GLFW CMake:\n${GLFW_OUTPUT}")
 message(STATUS "[Tools] GLFW Build:\n${GLFW_BUILD_OUTPUT}")
 
 execute_process(
-    COMMAND Copy-Item ${CMAKE_CURRENT_SOURCE_DIR}/glfw-build/src/Debug/glfw3.lib -Destination ./lib/
+    COMMAND powershell Copy-Item ./glfw-build/src/Debug/glfw3.lib -Destination ./lib/
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     OUTPUT_VARIABLE GLFW_COPY
 )
 
-# message(STATUS "[Tools] GLFW Copy Result:\n${GLFW_COPY}")
+
+message(STATUS "[Tools] GLFW Copy Result:\n${GLFW_COPY}")
 
 add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/include/glm/")
 
@@ -43,4 +44,4 @@ add_library(glfw INTERFACE)
 target_include_directories(glfw SYSTEM INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/glfw/include/")
 
 # GLFW lib Path: ${CMAKE_SOURCE_DIR}/Tools/third_party/lib/glfw3.lib
-set(glfw_lib "${CMAKE_SOURCE_DIR}/Tools/third_party/lib/glfw3.lib" CACHE FILEPATH)
+set(MY_GLFW_LIB "${CMAKE_CURRENT_SOURCE_DIR}/lib/glfw3.lib" CACHE FILEPATH "")
