@@ -2,29 +2,29 @@
 
 
 ## GLFW3
-# set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
-# set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
-# set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+
+ execute_process (
+    COMMAND cmake -S ${CMAKE_CURRENT_SOURCE_DIR}/glfw/ -B ./glfw-build/
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    OUTPUT_VARIABLE GLFW_OUTPUT
+)
+message(STATUS "[Tools] GLFW CMake:\n${GLFW_OUTPUT}")
 
 # execute_process (
-#     COMMAND cmake ./glfw/ -B ./glfw-build/
-#     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-#     OUTPUT_VARIABLE GLFW_OUTPUT
-# )
-# message(STATUS "[Tools] GLFW CMake:\n${GLFW_OUTPUT}")
+    COMMAND cmake --build ${CMAKE_CURRENT_SOURCE_DIR}/glfw-build/
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    OUTPUT_VARIABLE GLFW_BUILD_OUTPUT
+)
+message(STATUS "[Tools] GLFW Build:\n${GLFW_BUILD_OUTPUT}")
 
-# execute_process (
-#     COMMAND cmake --build ./glfw-build/
-#     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-#     OUTPUT_VARIABLE GLFW_BUILD_OUTPUT
-# )
-# message(STATUS "[Tools] GLFW Build:\n${GLFW_BUILD_OUTPUT}")
-
-# execute_process(
-#     COMMAND copy ./glfw-build/src/Debug/glfw3.lib ./lib/glfw3.lib
-#     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-#     OUTPUT_VARIABLE GLFW_COPY
-# )
+execute_process(
+    COMMAND Copy-Item ${CMAKE_CURRENT_SOURCE_DIR}/glfw-build/src/Debug/glfw3.lib -Destination ./lib/
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    OUTPUT_VARIABLE GLFW_COPY
+)
 
 # message(STATUS "[Tools] GLFW Copy Result:\n${GLFW_COPY}")
 
@@ -39,7 +39,7 @@ target_include_directories(ufbx PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/UFBX
 add_library(stbi STATIC "${CMAKE_CURRENT_SOURCE_DIR}/src/stb_image.cpp")
 target_include_directories(stbi PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/STBI/")
 
-# add_library(glfw INTERFACE)
-# target_include_directories(glfw SYSTEM INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/include/GLFW/")
+add_library(glfw INTERFACE)
+target_include_directories(glfw SYSTEM INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/glfw/include/")
 
 # GLFW lib Path: ${CMAKE_SOURCE_DIR}/Tools/third_party/lib/glfw3.lib
