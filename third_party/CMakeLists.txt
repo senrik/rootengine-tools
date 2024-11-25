@@ -43,3 +43,4 @@ add_library(glfw INTERFACE)
 target_include_directories(glfw SYSTEM INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/glfw/include/")
 
 # GLFW lib Path: ${CMAKE_SOURCE_DIR}/Tools/third_party/lib/glfw3.lib
+set(glfw_lib "${CMAKE_SOURCE_DIR}/Tools/third_party/lib/glfw3.lib" CACHE FILEPATH)
