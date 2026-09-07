@@ -20,14 +20,7 @@ execute_process (
 )
 message(STATUS "[Tools] GLFW Build:\n${GLFW_BUILD_OUTPUT}")
 
-execute_process(
-    COMMAND powershell Copy-Item ./glfw-build/src/Debug/glfw3.lib -Destination ./lib/
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-    OUTPUT_VARIABLE GLFW_COPY
-)
-
-
-message(STATUS "[Tools] GLFW Copy Result:\n${GLFW_COPY}")
+# file(COPY ./glfw/build/src/Debug/glfw3.lib DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/libs/)
 
 add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/include/glm/")
 
@@ -44,4 +37,3 @@ add_library(glfw INTERFACE)
 target_include_directories(glfw SYSTEM INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/glfw/include/")
 
 # GLFW lib Path: ${CMAKE_SOURCE_DIR}/Tools/third_party/lib/glfw3.lib
-set(MY_GLFW_LIB "${CMAKE_CURRENT_SOURCE_DIR}/lib/glfw3.lib" CACHE FILEPATH "")
