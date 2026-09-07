@@ -7,14 +7,14 @@ set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 
 execute_process (
-    COMMAND cmake ./glfw/ -B ./glfw/build/
+    COMMAND cmake -S ${CMAKE_CURRENT_SOURCE_DIR}/glfw/ -B ./glfw-build/
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     OUTPUT_VARIABLE GLFW_OUTPUT
 )
 message(STATUS "[Tools] GLFW CMake:\n${GLFW_OUTPUT}")
 
 execute_process (
-    COMMAND cmake --build ./glfw/build/
+    COMMAND cmake --build ${CMAKE_CURRENT_SOURCE_DIR}/glfw-build/
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     OUTPUT_VARIABLE GLFW_BUILD_OUTPUT
 )
@@ -34,7 +34,6 @@ add_library(stbi STATIC "${CMAKE_CURRENT_SOURCE_DIR}/src/stb_image.cpp")
 target_include_directories(stbi PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/STBI/")
 
 add_library(glfw INTERFACE)
-target_link_libraries(glfw INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/libs/glfw3.lib")
-target_include_directories(glfw SYSTEM INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/include/GLFW/")
+target_include_directories(glfw SYSTEM INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/glfw/include/")
 
-# GLFW lib Path: ${CMAKE_SOURCE_DIR}/Tools/third_party/libs/glfw3.lib
+# GLFW lib Path: ${CMAKE_SOURCE_DIR}/Tools/third_party/lib/glfw3.lib
