@@ -20,7 +20,7 @@ execute_process (
 )
 message(STATUS "[Tools] GLFW Build:\n${GLFW_BUILD_OUTPUT}")
 
-file(COPY ./glfw/build/src/Debug/glfw3.lib DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/libs/)
+# file(COPY ./glfw/build/src/Debug/glfw3.lib DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/libs/)
 
 add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/include/glm/")
 
