@@ -22,6 +22,8 @@ message(STATUS "[Tools] GLFW Build:\n${GLFW_BUILD_OUTPUT}")
 
 # file(COPY ./glfw/build/src/Debug/glfw3.lib DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/libs/)
 
+add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/glfw/")
+
 add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/include/glm/")
 
 add_library(glad STATIC "${CMAKE_CURRENT_SOURCE_DIR}/src/glad.c")
@@ -32,8 +34,5 @@ target_include_directories(ufbx PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/UFBX
 
 add_library(stbi STATIC "${CMAKE_CURRENT_SOURCE_DIR}/src/stb_image.cpp")
 target_include_directories(stbi PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/STBI/")
-
-add_library(glfw INTERFACE)
-target_include_directories(glfw SYSTEM INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/glfw/include/")
 
 # GLFW lib Path: ${CMAKE_SOURCE_DIR}/Tools/third_party/lib/glfw3.lib
